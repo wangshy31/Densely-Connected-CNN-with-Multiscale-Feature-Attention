@@ -234,20 +234,54 @@ def generate_pooling_layer_str(name, bottom, top, pool_type="AVE", kernel_h=3, k
 }\n'''%(name, bottom, top, pool_type, kernel_h, kernel_w, stride_h, stride_w, pad_h, pad_w)
     return pool_layer_str
 
-def generate_fc_layer_str(name, bottom, top, num_output, filler="msra", std=0.01):
-    fc_layer_str = '''layer {
+def generate_fc_layer_str(name, bottom, top, num_output, param_list=[]):
+    if param_list == []:
+        fc_layer_str = '''layer {
   name: "%s"
   type: "InnerProduct"
   bottom: "%s"
   top: "%s"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: %d
-     weight_filler { type: "%s" std: %.3f }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
-}\n'''%(name, bottom, top, num_output, filler, std)
+}\n'''%(name, bottom, top, num_output)
+    else:
+        param_str = '''param {
+    lr_mult: %d
+    decay_mult: %d
+  }
+  param {
+    lr_mult: %d
+    decay_mult: %d
+  }'''%(param_list[0], param_list[1], param_list[2], param_list[3])
+
+        fc_layer_str = '''layer {
+  name: "%s"
+  type: "InnerProduct"
+  bottom: "%s"
+  top: "%s"
+  %s
+  inner_product_param {
+     num_output: %d
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
+  }
+}\n'''%(name, bottom, top, param_str, num_output)
+
     return fc_layer_str
 
 def generate_flatten_layer_str(name, bottom, top):

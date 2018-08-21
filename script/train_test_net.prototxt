@@ -40,9 +40,9 @@ layer {
 }
 #----Transform Feature Dimension----
 layer {
-  name: "trans_layer_conv_0"
+  name: "trans_layer_conv0"
   bottom: "data"
-  top: "trans_layer_conv_0"
+  top: "trans_layer_conv0"
   type: "Convolution"
   convolution_param {
     num_output: 64
@@ -63,9 +63,9 @@ layer {
   }
 }
 layer {
-  name: "trans_layer_bn_0"
-  bottom: "trans_layer_conv_0"
-  top: "trans_layer_bn_0"
+  name: "trans_layer_bn0"
+  bottom: "trans_layer_conv0"
+  top: "trans_layer_bn0"
   type: "BatchNorm"
   param {
     lr_mult: 0
@@ -81,15 +81,15 @@ layer {
   }
 }
 layer {
-  name: "trans_layer_relu_0"
-  bottom: "trans_layer_bn_0"
-  top: "trans_layer_bn_0"
+  name: "trans_layer_relu0"
+  bottom: "trans_layer_bn0"
+  top: "trans_layer_bn0"
   type: "ReLU"
 }
 layer {
-  name: "trans_layer_conv_1"
-  bottom: "trans_layer_bn_0"
-  top: "trans_layer_conv_1"
+  name: "trans_layer_conv1"
+  bottom: "trans_layer_bn0"
+  top: "trans_layer_conv1"
   type: "Convolution"
   convolution_param {
     num_output: 64
@@ -110,9 +110,9 @@ layer {
   }
 }
 layer {
-  name: "trans_layer_bn_1"
-  bottom: "trans_layer_conv_1"
-  top: "trans_layer_bn_1"
+  name: "trans_layer_bn1"
+  bottom: "trans_layer_conv1"
+  top: "trans_layer_bn1"
   type: "BatchNorm"
   param {
     lr_mult: 0
@@ -128,15 +128,15 @@ layer {
   }
 }
 layer {
-  name: "trans_layer_relu_1"
-  bottom: "trans_layer_bn_1"
-  top: "trans_layer_bn_1"
+  name: "trans_layer_relu1"
+  bottom: "trans_layer_bn1"
+  top: "trans_layer_bn1"
   type: "ReLU"
 }
 layer {
-  name: "trans_layer_conv_2"
-  bottom: "trans_layer_bn_1"
-  top: "trans_layer_conv_2"
+  name: "trans_layer_conv2"
+  bottom: "trans_layer_bn1"
+  top: "trans_layer_conv2"
   type: "Convolution"
   convolution_param {
     num_output: 64
@@ -157,9 +157,9 @@ layer {
   }
 }
 layer {
-  name: "trans_layer_bn_2"
-  bottom: "trans_layer_conv_2"
-  top: "trans_layer_bn_2"
+  name: "trans_layer_bn2"
+  bottom: "trans_layer_conv2"
+  top: "trans_layer_bn2"
   type: "BatchNorm"
   param {
     lr_mult: 0
@@ -175,16 +175,16 @@ layer {
   }
 }
 layer {
-  name: "trans_layer_relu_2"
-  bottom: "trans_layer_bn_2"
-  top: "trans_layer_bn_2"
+  name: "trans_layer_relu2"
+  bottom: "trans_layer_bn2"
+  top: "trans_layer_bn2"
   type: "ReLU"
 }
 #----Dense CNN----
 layer {
-  name: "dense_layer_conv_0"
-  bottom: "trans_layer_bn_2"
-  top: "dense_layer_conv_0"
+  name: "dense_layer_conv0"
+  bottom: "trans_layer_bn2"
+  top: "dense_layer_conv0"
   type: "Convolution"
   convolution_param {
     num_output: 64
@@ -205,21 +205,21 @@ layer {
   }
 }
 layer {
-  name: "dense_layer_concat_0"
-  bottom: "dense_layer_conv_0"
-  bottom: "trans_layer_conv_0"
-  bottom: "trans_layer_conv_1"
-  bottom: "trans_layer_conv_2"
-  top: "dense_layer_concat_0"
+  name: "dense_layer_concat0"
+  bottom: "dense_layer_conv0"
+  bottom: "trans_layer_conv0"
+  bottom: "trans_layer_conv1"
+  bottom: "trans_layer_conv2"
+  top: "dense_layer_concat0"
   type: "Concat"
   concat_param {
     axis: 1
   }
 }
 layer {
-  name: "dense_layer_bn_0"
-  bottom: "dense_layer_concat_0"
-  top: "dense_layer_bn_0"
+  name: "dense_layer_bn0"
+  bottom: "dense_layer_concat0"
+  top: "dense_layer_bn0"
   type: "BatchNorm"
   param {
     lr_mult: 0
@@ -235,15 +235,15 @@ layer {
   }
 }
 layer {
-  name: "dense_layer_relu_0"
-  bottom: "dense_layer_bn_0"
-  top: "dense_layer_bn_0"
+  name: "dense_layer_relu0"
+  bottom: "dense_layer_bn0"
+  top: "dense_layer_bn0"
   type: "ReLU"
 }
 layer {
-  name: "dense_layer_pool_0"
-  bottom: "dense_layer_bn_0"
-  top: "dense_layer_pool_0"
+  name: "dense_layer_pool0"
+  bottom: "dense_layer_bn0"
+  top: "dense_layer_pool0"
   type: "Pooling"
   pooling_param {
     pool: AVE
@@ -256,9 +256,9 @@ layer {
   }
 }
 layer {
-  name: "dense_layer_conv_1"
-  bottom: "dense_layer_pool_0"
-  top: "dense_layer_conv_1"
+  name: "dense_layer_conv1"
+  bottom: "dense_layer_pool0"
+  top: "dense_layer_conv1"
   type: "Convolution"
   convolution_param {
     num_output: 64
@@ -279,19 +279,19 @@ layer {
   }
 }
 layer {
-  name: "dense_layer_concat_1"
-  bottom: "dense_layer_conv_1"
-  bottom: "dense_layer_pool_0"
-  top: "dense_layer_concat_1"
+  name: "dense_layer_concat1"
+  bottom: "dense_layer_conv1"
+  bottom: "dense_layer_pool0"
+  top: "dense_layer_concat1"
   type: "Concat"
   concat_param {
     axis: 1
   }
 }
 layer {
-  name: "dense_layer_bn_1"
-  bottom: "dense_layer_concat_1"
-  top: "dense_layer_bn_1"
+  name: "dense_layer_bn1"
+  bottom: "dense_layer_concat1"
+  top: "dense_layer_bn1"
   type: "BatchNorm"
   param {
     lr_mult: 0
@@ -307,15 +307,15 @@ layer {
   }
 }
 layer {
-  name: "dense_layer_relu_1"
-  bottom: "dense_layer_bn_1"
-  top: "dense_layer_bn_1"
+  name: "dense_layer_relu1"
+  bottom: "dense_layer_bn1"
+  top: "dense_layer_bn1"
   type: "ReLU"
 }
 layer {
-  name: "dense_layer_pool_1"
-  bottom: "dense_layer_bn_1"
-  top: "dense_layer_pool_1"
+  name: "dense_layer_pool1"
+  bottom: "dense_layer_bn1"
+  top: "dense_layer_pool1"
   type: "Pooling"
   pooling_param {
     pool: AVE
@@ -328,9 +328,9 @@ layer {
   }
 }
 layer {
-  name: "dense_layer_conv_2"
-  bottom: "dense_layer_pool_1"
-  top: "dense_layer_conv_2"
+  name: "dense_layer_conv2"
+  bottom: "dense_layer_pool1"
+  top: "dense_layer_conv2"
   type: "Convolution"
   convolution_param {
     num_output: 64
@@ -351,19 +351,19 @@ layer {
   }
 }
 layer {
-  name: "dense_layer_concat_2"
-  bottom: "dense_layer_conv_2"
-  bottom: "dense_layer_pool_1"
-  top: "dense_layer_concat_2"
+  name: "dense_layer_concat2"
+  bottom: "dense_layer_conv2"
+  bottom: "dense_layer_pool1"
+  top: "dense_layer_concat2"
   type: "Concat"
   concat_param {
     axis: 1
   }
 }
 layer {
-  name: "dense_layer_bn_2"
-  bottom: "dense_layer_concat_2"
-  top: "dense_layer_bn_2"
+  name: "dense_layer_bn2"
+  bottom: "dense_layer_concat2"
+  top: "dense_layer_bn2"
   type: "BatchNorm"
   param {
     lr_mult: 0
@@ -379,15 +379,15 @@ layer {
   }
 }
 layer {
-  name: "dense_layer_relu_2"
-  bottom: "dense_layer_bn_2"
-  top: "dense_layer_bn_2"
+  name: "dense_layer_relu2"
+  bottom: "dense_layer_bn2"
+  top: "dense_layer_bn2"
   type: "ReLU"
 }
 layer {
-  name: "dense_layer_pool_2"
-  bottom: "dense_layer_bn_2"
-  top: "dense_layer_pool_2"
+  name: "dense_layer_pool2"
+  bottom: "dense_layer_bn2"
+  top: "dense_layer_pool2"
   type: "Pooling"
   pooling_param {
     pool: AVE
@@ -400,9 +400,9 @@ layer {
   }
 }
 layer {
-  name: "dense_layer_conv_3"
-  bottom: "dense_layer_pool_2"
-  top: "dense_layer_conv_3"
+  name: "dense_layer_conv3"
+  bottom: "dense_layer_pool2"
+  top: "dense_layer_conv3"
   type: "Convolution"
   convolution_param {
     num_output: 64
@@ -423,19 +423,19 @@ layer {
   }
 }
 layer {
-  name: "dense_layer_concat_3"
-  bottom: "dense_layer_conv_3"
-  bottom: "dense_layer_pool_2"
-  top: "dense_layer_concat_3"
+  name: "dense_layer_concat3"
+  bottom: "dense_layer_conv3"
+  bottom: "dense_layer_pool2"
+  top: "dense_layer_concat3"
   type: "Concat"
   concat_param {
     axis: 1
   }
 }
 layer {
-  name: "dense_layer_bn_3"
-  bottom: "dense_layer_concat_3"
-  top: "dense_layer_bn_3"
+  name: "dense_layer_bn3"
+  bottom: "dense_layer_concat3"
+  top: "dense_layer_bn3"
   type: "BatchNorm"
   param {
     lr_mult: 0
@@ -451,15 +451,15 @@ layer {
   }
 }
 layer {
-  name: "dense_layer_relu_3"
-  bottom: "dense_layer_bn_3"
-  top: "dense_layer_bn_3"
+  name: "dense_layer_relu3"
+  bottom: "dense_layer_bn3"
+  top: "dense_layer_bn3"
   type: "ReLU"
 }
 layer {
-  name: "dense_layer_pool_3"
-  bottom: "dense_layer_bn_3"
-  top: "dense_layer_pool_3"
+  name: "dense_layer_pool3"
+  bottom: "dense_layer_bn3"
+  top: "dense_layer_pool3"
   type: "Pooling"
   pooling_param {
     pool: AVE
@@ -472,9 +472,9 @@ layer {
   }
 }
 layer {
-  name: "dense_layer_conv_4"
-  bottom: "dense_layer_pool_3"
-  top: "dense_layer_conv_4"
+  name: "dense_layer_conv4"
+  bottom: "dense_layer_pool3"
+  top: "dense_layer_conv4"
   type: "Convolution"
   convolution_param {
     num_output: 64
@@ -495,19 +495,19 @@ layer {
   }
 }
 layer {
-  name: "dense_layer_concat_4"
-  bottom: "dense_layer_conv_4"
-  bottom: "dense_layer_pool_3"
-  top: "dense_layer_concat_4"
+  name: "dense_layer_concat4"
+  bottom: "dense_layer_conv4"
+  bottom: "dense_layer_pool3"
+  top: "dense_layer_concat4"
   type: "Concat"
   concat_param {
     axis: 1
   }
 }
 layer {
-  name: "dense_layer_bn_4"
-  bottom: "dense_layer_concat_4"
-  top: "dense_layer_bn_4"
+  name: "dense_layer_bn4"
+  bottom: "dense_layer_concat4"
+  top: "dense_layer_bn4"
   type: "BatchNorm"
   param {
     lr_mult: 0
@@ -523,16 +523,16 @@ layer {
   }
 }
 layer {
-  name: "dense_layer_relu_4"
-  bottom: "dense_layer_bn_4"
-  top: "dense_layer_bn_4"
+  name: "dense_layer_relu4"
+  bottom: "dense_layer_bn4"
+  top: "dense_layer_bn4"
   type: "ReLU"
 }
 #----Multi-scale Feature Attention----
 layer {
-  name: "attention_layer_conv_0"
-  bottom: "dense_layer_bn_4"
-  top: "attention_layer_conv_0"
+  name: "attention_layer_conv0"
+  bottom: "dense_layer_bn4"
+  top: "attention_layer_conv0"
   type: "Convolution"
   convolution_param {
     num_output: 512
@@ -553,9 +553,9 @@ layer {
   }
 }
 layer {
-  name: "attention_layer_bn_0"
-  bottom: "attention_layer_conv_0"
-  top: "attention_layer_bn_0"
+  name: "attention_layer_bn0"
+  bottom: "attention_layer_conv0"
+  top: "attention_layer_bn0"
   type: "BatchNorm"
   param {
     lr_mult: 0
@@ -571,15 +571,15 @@ layer {
   }
 }
 layer {
-  name: "attention_layer_relu_0"
-  bottom: "attention_layer_bn_0"
-  top: "attention_layer_bn_0"
+  name: "attention_layer_relu0"
+  bottom: "attention_layer_bn0"
+  top: "attention_layer_bn0"
   type: "ReLU"
 }
 layer {
-  name: "attention_layer_conv_1"
-  bottom: "attention_layer_bn_0"
-  top: "attention_layer_conv_1"
+  name: "attention_layer_conv1"
+  bottom: "attention_layer_bn0"
+  top: "attention_layer_conv1"
   type: "Convolution"
   convolution_param {
     num_output: 512
@@ -600,9 +600,9 @@ layer {
   }
 }
 layer {
-  name: "attention_layer_bn_1"
-  bottom: "attention_layer_conv_1"
-  top: "attention_layer_bn_1"
+  name: "attention_layer_bn1"
+  bottom: "attention_layer_conv1"
+  top: "attention_layer_bn1"
   type: "BatchNorm"
   param {
     lr_mult: 0
@@ -618,15 +618,15 @@ layer {
   }
 }
 layer {
-  name: "attention_layer_relu_1"
-  bottom: "attention_layer_bn_1"
-  top: "attention_layer_bn_1"
+  name: "attention_layer_relu1"
+  bottom: "attention_layer_bn1"
+  top: "attention_layer_bn1"
   type: "ReLU"
 }
 layer {
-  name: "attention_layer_conv_2"
-  bottom: "attention_layer_bn_1"
-  top: "attention_layer_conv_2"
+  name: "attention_layer_conv2"
+  bottom: "attention_layer_bn1"
+  top: "attention_layer_conv2"
   type: "Convolution"
   convolution_param {
     num_output: 512
@@ -647,9 +647,9 @@ layer {
   }
 }
 layer {
-  name: "attention_layer_bn_2"
-  bottom: "attention_layer_conv_2"
-  top: "attention_layer_bn_2"
+  name: "attention_layer_bn2"
+  bottom: "attention_layer_conv2"
+  top: "attention_layer_bn2"
   type: "BatchNorm"
   param {
     lr_mult: 0
@@ -665,22 +665,22 @@ layer {
   }
 }
 layer {
-  name: "attention_layer_relu_2"
-  bottom: "attention_layer_bn_2"
-  top: "attention_layer_bn_2"
+  name: "attention_layer_relu2"
+  bottom: "attention_layer_bn2"
+  top: "attention_layer_bn2"
   type: "ReLU"
 }
 layer {
   name: "attention_scale_slice"
-  bottom: "attention_layer_bn_2"
-  top: "attention_scale_0"
-  top: "attention_scale_1"
-  top: "attention_scale_2"
-  top: "attention_scale_3"
-  top: "attention_scale_4"
-  top: "attention_scale_5"
-  top: "attention_scale_6"
-  top: "attention_scale_7"
+  bottom: "attention_layer_bn2"
+  top: "attention_scale0"
+  top: "attention_scale1"
+  top: "attention_scale2"
+  top: "attention_scale3"
+  top: "attention_scale4"
+  top: "attention_scale5"
+  top: "attention_scale6"
+  top: "attention_scale7"
   type: "Slice"
   slice_param {
     axis: 1
@@ -694,9 +694,9 @@ layer {
     }
 }
 layer {
-  name: "attention_permute_0"
-  bottom: "attention_scale_0"
-  top: "attention_permute_0"
+  name: "attention_permute0"
+  bottom: "attention_scale0"
+  top: "attention_permute0"
   type: "Permute"
   permute_param {
       order: 0
@@ -706,18 +706,18 @@ layer {
   }
 }
 layer {
-  name: "attention_reduction_0"
-  bottom: "attention_permute_0"
-  top: "attention_reduction_0"
+  name: "attention_reduction0"
+  bottom: "attention_permute0"
+  top: "attention_reduction0"
   type: "Reduction"
   reduction_param {
     axis: 3
     }
 }
 layer {
-  name: "attention_permute_1"
-  bottom: "attention_scale_1"
-  top: "attention_permute_1"
+  name: "attention_permute1"
+  bottom: "attention_scale1"
+  top: "attention_permute1"
   type: "Permute"
   permute_param {
       order: 0
@@ -727,18 +727,18 @@ layer {
   }
 }
 layer {
-  name: "attention_reduction_1"
-  bottom: "attention_permute_1"
-  top: "attention_reduction_1"
+  name: "attention_reduction1"
+  bottom: "attention_permute1"
+  top: "attention_reduction1"
   type: "Reduction"
   reduction_param {
     axis: 3
     }
 }
 layer {
-  name: "attention_permute_2"
-  bottom: "attention_scale_2"
-  top: "attention_permute_2"
+  name: "attention_permute2"
+  bottom: "attention_scale2"
+  top: "attention_permute2"
   type: "Permute"
   permute_param {
       order: 0
@@ -748,18 +748,18 @@ layer {
   }
 }
 layer {
-  name: "attention_reduction_2"
-  bottom: "attention_permute_2"
-  top: "attention_reduction_2"
+  name: "attention_reduction2"
+  bottom: "attention_permute2"
+  top: "attention_reduction2"
   type: "Reduction"
   reduction_param {
     axis: 3
     }
 }
 layer {
-  name: "attention_permute_3"
-  bottom: "attention_scale_3"
-  top: "attention_permute_3"
+  name: "attention_permute3"
+  bottom: "attention_scale3"
+  top: "attention_permute3"
   type: "Permute"
   permute_param {
       order: 0
@@ -769,18 +769,18 @@ layer {
   }
 }
 layer {
-  name: "attention_reduction_3"
-  bottom: "attention_permute_3"
-  top: "attention_reduction_3"
+  name: "attention_reduction3"
+  bottom: "attention_permute3"
+  top: "attention_reduction3"
   type: "Reduction"
   reduction_param {
     axis: 3
     }
 }
 layer {
-  name: "attention_permute_4"
-  bottom: "attention_scale_4"
-  top: "attention_permute_4"
+  name: "attention_permute4"
+  bottom: "attention_scale4"
+  top: "attention_permute4"
   type: "Permute"
   permute_param {
       order: 0
@@ -790,18 +790,18 @@ layer {
   }
 }
 layer {
-  name: "attention_reduction_4"
-  bottom: "attention_permute_4"
-  top: "attention_reduction_4"
+  name: "attention_reduction4"
+  bottom: "attention_permute4"
+  top: "attention_reduction4"
   type: "Reduction"
   reduction_param {
     axis: 3
     }
 }
 layer {
-  name: "attention_permute_5"
-  bottom: "attention_scale_5"
-  top: "attention_permute_5"
+  name: "attention_permute5"
+  bottom: "attention_scale5"
+  top: "attention_permute5"
   type: "Permute"
   permute_param {
       order: 0
@@ -811,18 +811,18 @@ layer {
   }
 }
 layer {
-  name: "attention_reduction_5"
-  bottom: "attention_permute_5"
-  top: "attention_reduction_5"
+  name: "attention_reduction5"
+  bottom: "attention_permute5"
+  top: "attention_reduction5"
   type: "Reduction"
   reduction_param {
     axis: 3
     }
 }
 layer {
-  name: "attention_permute_6"
-  bottom: "attention_scale_6"
-  top: "attention_permute_6"
+  name: "attention_permute6"
+  bottom: "attention_scale6"
+  top: "attention_permute6"
   type: "Permute"
   permute_param {
       order: 0
@@ -832,18 +832,18 @@ layer {
   }
 }
 layer {
-  name: "attention_reduction_6"
-  bottom: "attention_permute_6"
-  top: "attention_reduction_6"
+  name: "attention_reduction6"
+  bottom: "attention_permute6"
+  top: "attention_reduction6"
   type: "Reduction"
   reduction_param {
     axis: 3
     }
 }
 layer {
-  name: "attention_permute_7"
-  bottom: "attention_scale_7"
-  top: "attention_permute_7"
+  name: "attention_permute7"
+  bottom: "attention_scale7"
+  top: "attention_permute7"
   type: "Permute"
   permute_param {
       order: 0
@@ -853,9 +853,9 @@ layer {
   }
 }
 layer {
-  name: "attention_reduction_7"
-  bottom: "attention_permute_7"
-  top: "attention_reduction_7"
+  name: "attention_reduction7"
+  bottom: "attention_permute7"
+  top: "attention_reduction7"
   type: "Reduction"
   reduction_param {
     axis: 3
@@ -863,14 +863,14 @@ layer {
 }
 layer {
   name: "attention_scale_concat"
-  bottom: "attention_reduction_0"
-  bottom: "attention_reduction_1"
-  bottom: "attention_reduction_2"
-  bottom: "attention_reduction_3"
-  bottom: "attention_reduction_4"
-  bottom: "attention_reduction_5"
-  bottom: "attention_reduction_6"
-  bottom: "attention_reduction_7"
+  bottom: "attention_reduction0"
+  bottom: "attention_reduction1"
+  bottom: "attention_reduction2"
+  bottom: "attention_reduction3"
+  bottom: "attention_reduction4"
+  bottom: "attention_reduction5"
+  bottom: "attention_reduction6"
+  bottom: "attention_reduction7"
   top: "attention_scale_concat"
   type: "Concat"
   concat_param {
@@ -880,14 +880,14 @@ layer {
 layer {
   name: "attention_height_slice"
   bottom: "attention_scale_concat"
-  top: "attention_height_0"
-  top: "attention_height_1"
-  top: "attention_height_2"
-  top: "attention_height_3"
-  top: "attention_height_4"
-  top: "attention_height_5"
-  top: "attention_height_6"
-  top: "attention_height_7"
+  top: "attention_height0"
+  top: "attention_height1"
+  top: "attention_height2"
+  top: "attention_height3"
+  top: "attention_height4"
+  top: "attention_height5"
+  top: "attention_height6"
+  top: "attention_height7"
   type: "Slice"
   slice_param {
     axis: 2
@@ -903,14 +903,18 @@ layer {
 layer {
   name: "attention_height_fc1_0"
   type: "InnerProduct"
-  bottom: "attention_height_0"
+  bottom: "attention_height0"
   top: "attention_height_fc1_0"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
-     num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -918,18 +922,22 @@ layer {
   type: "InnerProduct"
   bottom: "attention_height_fc1_0"
   top: "attention_height_fc2_0"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
-  name: "attention_height_reshape_0"
+  name: "attention_height_reshape0"
   bottom: "attention_height_fc2_0"
-  top: "attention_height_reshape_0"
+  top: "attention_height_reshape0"
   type: "Reshape"
   reshape_param {
     shape {
@@ -943,14 +951,18 @@ layer {
 layer {
   name: "attention_height_fc1_1"
   type: "InnerProduct"
-  bottom: "attention_height_1"
+  bottom: "attention_height1"
   top: "attention_height_fc1_1"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
-     num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -958,18 +970,22 @@ layer {
   type: "InnerProduct"
   bottom: "attention_height_fc1_1"
   top: "attention_height_fc2_1"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
-  name: "attention_height_reshape_1"
+  name: "attention_height_reshape1"
   bottom: "attention_height_fc2_1"
-  top: "attention_height_reshape_1"
+  top: "attention_height_reshape1"
   type: "Reshape"
   reshape_param {
     shape {
@@ -983,14 +999,18 @@ layer {
 layer {
   name: "attention_height_fc1_2"
   type: "InnerProduct"
-  bottom: "attention_height_2"
+  bottom: "attention_height2"
   top: "attention_height_fc1_2"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
-     num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -998,18 +1018,22 @@ layer {
   type: "InnerProduct"
   bottom: "attention_height_fc1_2"
   top: "attention_height_fc2_2"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
-  name: "attention_height_reshape_2"
+  name: "attention_height_reshape2"
   bottom: "attention_height_fc2_2"
-  top: "attention_height_reshape_2"
+  top: "attention_height_reshape2"
   type: "Reshape"
   reshape_param {
     shape {
@@ -1023,14 +1047,18 @@ layer {
 layer {
   name: "attention_height_fc1_3"
   type: "InnerProduct"
-  bottom: "attention_height_3"
+  bottom: "attention_height3"
   top: "attention_height_fc1_3"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
-     num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1038,18 +1066,22 @@ layer {
   type: "InnerProduct"
   bottom: "attention_height_fc1_3"
   top: "attention_height_fc2_3"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
-  name: "attention_height_reshape_3"
+  name: "attention_height_reshape3"
   bottom: "attention_height_fc2_3"
-  top: "attention_height_reshape_3"
+  top: "attention_height_reshape3"
   type: "Reshape"
   reshape_param {
     shape {
@@ -1063,14 +1095,18 @@ layer {
 layer {
   name: "attention_height_fc1_4"
   type: "InnerProduct"
-  bottom: "attention_height_4"
+  bottom: "attention_height4"
   top: "attention_height_fc1_4"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
-     num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1078,18 +1114,22 @@ layer {
   type: "InnerProduct"
   bottom: "attention_height_fc1_4"
   top: "attention_height_fc2_4"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
-  name: "attention_height_reshape_4"
+  name: "attention_height_reshape4"
   bottom: "attention_height_fc2_4"
-  top: "attention_height_reshape_4"
+  top: "attention_height_reshape4"
   type: "Reshape"
   reshape_param {
     shape {
@@ -1103,14 +1143,18 @@ layer {
 layer {
   name: "attention_height_fc1_5"
   type: "InnerProduct"
-  bottom: "attention_height_5"
+  bottom: "attention_height5"
   top: "attention_height_fc1_5"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
-     num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1118,18 +1162,22 @@ layer {
   type: "InnerProduct"
   bottom: "attention_height_fc1_5"
   top: "attention_height_fc2_5"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
-  name: "attention_height_reshape_5"
+  name: "attention_height_reshape5"
   bottom: "attention_height_fc2_5"
-  top: "attention_height_reshape_5"
+  top: "attention_height_reshape5"
   type: "Reshape"
   reshape_param {
     shape {
@@ -1143,14 +1191,18 @@ layer {
 layer {
   name: "attention_height_fc1_6"
   type: "InnerProduct"
-  bottom: "attention_height_6"
+  bottom: "attention_height6"
   top: "attention_height_fc1_6"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
-     num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1158,18 +1210,22 @@ layer {
   type: "InnerProduct"
   bottom: "attention_height_fc1_6"
   top: "attention_height_fc2_6"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
-  name: "attention_height_reshape_6"
+  name: "attention_height_reshape6"
   bottom: "attention_height_fc2_6"
-  top: "attention_height_reshape_6"
+  top: "attention_height_reshape6"
   type: "Reshape"
   reshape_param {
     shape {
@@ -1183,14 +1239,18 @@ layer {
 layer {
   name: "attention_height_fc1_7"
   type: "InnerProduct"
-  bottom: "attention_height_7"
+  bottom: "attention_height7"
   top: "attention_height_fc1_7"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
-     num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1198,18 +1258,22 @@ layer {
   type: "InnerProduct"
   bottom: "attention_height_fc1_7"
   top: "attention_height_fc2_7"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 8
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
-  name: "attention_height_reshape_7"
+  name: "attention_height_reshape7"
   bottom: "attention_height_fc2_7"
-  top: "attention_height_reshape_7"
+  top: "attention_height_reshape7"
   type: "Reshape"
   reshape_param {
     shape {
@@ -1222,14 +1286,14 @@ layer {
 }
 layer {
   name: "attention_height_concat"
-  bottom: "attention_height_reshape_0"
-  bottom: "attention_height_reshape_1"
-  bottom: "attention_height_reshape_2"
-  bottom: "attention_height_reshape_3"
-  bottom: "attention_height_reshape_4"
-  bottom: "attention_height_reshape_5"
-  bottom: "attention_height_reshape_6"
-  bottom: "attention_height_reshape_7"
+  bottom: "attention_height_reshape0"
+  bottom: "attention_height_reshape1"
+  bottom: "attention_height_reshape2"
+  bottom: "attention_height_reshape3"
+  bottom: "attention_height_reshape4"
+  bottom: "attention_height_reshape5"
+  bottom: "attention_height_reshape6"
+  bottom: "attention_height_reshape7"
   top: "attention_height_concat"
   type: "Concat"
   concat_param {
@@ -1245,14 +1309,14 @@ layer {
 layer {
   name: "attention_weight_slice"
   bottom: "attention_weight"
-  top: "attention_weight_slice_0"
-  top: "attention_weight_slice_1"
-  top: "attention_weight_slice_2"
-  top: "attention_weight_slice_3"
-  top: "attention_weight_slice_4"
-  top: "attention_weight_slice_5"
-  top: "attention_weight_slice_6"
-  top: "attention_weight_slice_7"
+  top: "attention_weight_slice0"
+  top: "attention_weight_slice1"
+  top: "attention_weight_slice2"
+  top: "attention_weight_slice3"
+  top: "attention_weight_slice4"
+  top: "attention_weight_slice5"
+  top: "attention_weight_slice6"
+  top: "attention_weight_slice7"
   type: "Slice"
   slice_param {
     axis: 1
@@ -1266,9 +1330,9 @@ layer {
     }
 }
 layer {
-  name: "attention_weight_tile_0"
-  bottom: "attention_weight_slice_0"
-  top: "attention_weight_tile_0"
+  name: "attention_weight_tile0"
+  bottom: "attention_weight_slice0"
+  top: "attention_weight_tile0"
   type: "Tile"
   tile_param {
     axis: 1
@@ -1276,19 +1340,19 @@ layer {
   }
 }
 layer {
-  name: "attention_reweight_0"
-  bottom: "attention_scale_0"
-  bottom: "attention_weight_tile_0"
-  top: "attention_reweight_0"
+  name: "attention_reweight0"
+  bottom: "attention_scale0"
+  bottom: "attention_weight_tile0"
+  top: "attention_reweight0"
   type: "Eltwise"
   eltwise_param {
     operation: PROD
   }
 }
 layer {
-  name: "attention_weight_tile_1"
-  bottom: "attention_weight_slice_1"
-  top: "attention_weight_tile_1"
+  name: "attention_weight_tile1"
+  bottom: "attention_weight_slice1"
+  top: "attention_weight_tile1"
   type: "Tile"
   tile_param {
     axis: 1
@@ -1296,19 +1360,19 @@ layer {
   }
 }
 layer {
-  name: "attention_reweight_1"
-  bottom: "attention_scale_1"
-  bottom: "attention_weight_tile_1"
-  top: "attention_reweight_1"
+  name: "attention_reweight1"
+  bottom: "attention_scale1"
+  bottom: "attention_weight_tile1"
+  top: "attention_reweight1"
   type: "Eltwise"
   eltwise_param {
     operation: PROD
   }
 }
 layer {
-  name: "attention_weight_tile_2"
-  bottom: "attention_weight_slice_2"
-  top: "attention_weight_tile_2"
+  name: "attention_weight_tile2"
+  bottom: "attention_weight_slice2"
+  top: "attention_weight_tile2"
   type: "Tile"
   tile_param {
     axis: 1
@@ -1316,19 +1380,19 @@ layer {
   }
 }
 layer {
-  name: "attention_reweight_2"
-  bottom: "attention_scale_2"
-  bottom: "attention_weight_tile_2"
-  top: "attention_reweight_2"
+  name: "attention_reweight2"
+  bottom: "attention_scale2"
+  bottom: "attention_weight_tile2"
+  top: "attention_reweight2"
   type: "Eltwise"
   eltwise_param {
     operation: PROD
   }
 }
 layer {
-  name: "attention_weight_tile_3"
-  bottom: "attention_weight_slice_3"
-  top: "attention_weight_tile_3"
+  name: "attention_weight_tile3"
+  bottom: "attention_weight_slice3"
+  top: "attention_weight_tile3"
   type: "Tile"
   tile_param {
     axis: 1
@@ -1336,19 +1400,19 @@ layer {
   }
 }
 layer {
-  name: "attention_reweight_3"
-  bottom: "attention_scale_3"
-  bottom: "attention_weight_tile_3"
-  top: "attention_reweight_3"
+  name: "attention_reweight3"
+  bottom: "attention_scale3"
+  bottom: "attention_weight_tile3"
+  top: "attention_reweight3"
   type: "Eltwise"
   eltwise_param {
     operation: PROD
   }
 }
 layer {
-  name: "attention_weight_tile_4"
-  bottom: "attention_weight_slice_4"
-  top: "attention_weight_tile_4"
+  name: "attention_weight_tile4"
+  bottom: "attention_weight_slice4"
+  top: "attention_weight_tile4"
   type: "Tile"
   tile_param {
     axis: 1
@@ -1356,19 +1420,19 @@ layer {
   }
 }
 layer {
-  name: "attention_reweight_4"
-  bottom: "attention_scale_4"
-  bottom: "attention_weight_tile_4"
-  top: "attention_reweight_4"
+  name: "attention_reweight4"
+  bottom: "attention_scale4"
+  bottom: "attention_weight_tile4"
+  top: "attention_reweight4"
   type: "Eltwise"
   eltwise_param {
     operation: PROD
   }
 }
 layer {
-  name: "attention_weight_tile_5"
-  bottom: "attention_weight_slice_5"
-  top: "attention_weight_tile_5"
+  name: "attention_weight_tile5"
+  bottom: "attention_weight_slice5"
+  top: "attention_weight_tile5"
   type: "Tile"
   tile_param {
     axis: 1
@@ -1376,19 +1440,19 @@ layer {
   }
 }
 layer {
-  name: "attention_reweight_5"
-  bottom: "attention_scale_5"
-  bottom: "attention_weight_tile_5"
-  top: "attention_reweight_5"
+  name: "attention_reweight5"
+  bottom: "attention_scale5"
+  bottom: "attention_weight_tile5"
+  top: "attention_reweight5"
   type: "Eltwise"
   eltwise_param {
     operation: PROD
   }
 }
 layer {
-  name: "attention_weight_tile_6"
-  bottom: "attention_weight_slice_6"
-  top: "attention_weight_tile_6"
+  name: "attention_weight_tile6"
+  bottom: "attention_weight_slice6"
+  top: "attention_weight_tile6"
   type: "Tile"
   tile_param {
     axis: 1
@@ -1396,19 +1460,19 @@ layer {
   }
 }
 layer {
-  name: "attention_reweight_6"
-  bottom: "attention_scale_6"
-  bottom: "attention_weight_tile_6"
-  top: "attention_reweight_6"
+  name: "attention_reweight6"
+  bottom: "attention_scale6"
+  bottom: "attention_weight_tile6"
+  top: "attention_reweight6"
   type: "Eltwise"
   eltwise_param {
     operation: PROD
   }
 }
 layer {
-  name: "attention_weight_tile_7"
-  bottom: "attention_weight_slice_7"
-  top: "attention_weight_tile_7"
+  name: "attention_weight_tile7"
+  bottom: "attention_weight_slice7"
+  top: "attention_weight_tile7"
   type: "Tile"
   tile_param {
     axis: 1
@@ -1416,10 +1480,10 @@ layer {
   }
 }
 layer {
-  name: "attention_reweight_7"
-  bottom: "attention_scale_7"
-  bottom: "attention_weight_tile_7"
-  top: "attention_reweight_7"
+  name: "attention_reweight7"
+  bottom: "attention_scale7"
+  bottom: "attention_weight_tile7"
+  top: "attention_reweight7"
   type: "Eltwise"
   eltwise_param {
     operation: PROD
@@ -1427,14 +1491,14 @@ layer {
 }
 layer {
   name: "attention_reweight_sum"
-  bottom: "attention_reweight_0"
-  bottom: "attention_reweight_1"
-  bottom: "attention_reweight_2"
-  bottom: "attention_reweight_3"
-  bottom: "attention_reweight_4"
-  bottom: "attention_reweight_5"
-  bottom: "attention_reweight_6"
-  bottom: "attention_reweight_7"
+  bottom: "attention_reweight0"
+  bottom: "attention_reweight1"
+  bottom: "attention_reweight2"
+  bottom: "attention_reweight3"
+  bottom: "attention_reweight4"
+  bottom: "attention_reweight5"
+  bottom: "attention_reweight6"
+  bottom: "attention_reweight7"
   top: "attention_reweight_sum"
   type: "Eltwise"
   eltwise_param {
@@ -1461,12 +1525,16 @@ layer {
   type: "InnerProduct"
   bottom: "attention_reweight_dropout"
   top: "classification_fc1"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 64
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1483,12 +1551,24 @@ layer {
   type: "InnerProduct"
   bottom: "classification_dropout"
   top: "classification_fc2"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
   inner_product_param {
      num_output: 4
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1507,7 +1587,7 @@ layer {
 }
 layer {
   name: "attention_pool_scale0"
-  bottom: "attention_scale_0"
+  bottom: "attention_scale0"
   top: "attention_pool_scale0"
   type: "Pooling"
   pooling_param {
@@ -1534,12 +1614,16 @@ layer {
   type: "InnerProduct"
   bottom: "attention_dropout_scale0"
   top: "classification_fc1_scale0"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 64
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1556,12 +1640,24 @@ layer {
   type: "InnerProduct"
   bottom: "classification_dropout_scale0"
   top: "classification_fc2_scale0"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
   inner_product_param {
      num_output: 4
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1580,7 +1676,7 @@ layer {
 }
 layer {
   name: "attention_pool_scale1"
-  bottom: "attention_scale_1"
+  bottom: "attention_scale1"
   top: "attention_pool_scale1"
   type: "Pooling"
   pooling_param {
@@ -1607,12 +1703,16 @@ layer {
   type: "InnerProduct"
   bottom: "attention_dropout_scale1"
   top: "classification_fc1_scale1"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 64
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1629,12 +1729,24 @@ layer {
   type: "InnerProduct"
   bottom: "classification_dropout_scale1"
   top: "classification_fc2_scale1"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
   inner_product_param {
      num_output: 4
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1653,7 +1765,7 @@ layer {
 }
 layer {
   name: "attention_pool_scale2"
-  bottom: "attention_scale_2"
+  bottom: "attention_scale2"
   top: "attention_pool_scale2"
   type: "Pooling"
   pooling_param {
@@ -1680,12 +1792,16 @@ layer {
   type: "InnerProduct"
   bottom: "attention_dropout_scale2"
   top: "classification_fc1_scale2"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 64
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1702,12 +1818,24 @@ layer {
   type: "InnerProduct"
   bottom: "classification_dropout_scale2"
   top: "classification_fc2_scale2"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
   inner_product_param {
      num_output: 4
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1726,7 +1854,7 @@ layer {
 }
 layer {
   name: "attention_pool_scale3"
-  bottom: "attention_scale_3"
+  bottom: "attention_scale3"
   top: "attention_pool_scale3"
   type: "Pooling"
   pooling_param {
@@ -1753,12 +1881,16 @@ layer {
   type: "InnerProduct"
   bottom: "attention_dropout_scale3"
   top: "classification_fc1_scale3"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 64
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1775,12 +1907,24 @@ layer {
   type: "InnerProduct"
   bottom: "classification_dropout_scale3"
   top: "classification_fc2_scale3"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
   inner_product_param {
      num_output: 4
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1799,7 +1943,7 @@ layer {
 }
 layer {
   name: "attention_pool_scale4"
-  bottom: "attention_scale_4"
+  bottom: "attention_scale4"
   top: "attention_pool_scale4"
   type: "Pooling"
   pooling_param {
@@ -1826,12 +1970,16 @@ layer {
   type: "InnerProduct"
   bottom: "attention_dropout_scale4"
   top: "classification_fc1_scale4"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 64
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1848,12 +1996,24 @@ layer {
   type: "InnerProduct"
   bottom: "classification_dropout_scale4"
   top: "classification_fc2_scale4"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
   inner_product_param {
      num_output: 4
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1872,7 +2032,7 @@ layer {
 }
 layer {
   name: "attention_pool_scale5"
-  bottom: "attention_scale_5"
+  bottom: "attention_scale5"
   top: "attention_pool_scale5"
   type: "Pooling"
   pooling_param {
@@ -1899,12 +2059,16 @@ layer {
   type: "InnerProduct"
   bottom: "attention_dropout_scale5"
   top: "classification_fc1_scale5"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 64
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1921,12 +2085,24 @@ layer {
   type: "InnerProduct"
   bottom: "classification_dropout_scale5"
   top: "classification_fc2_scale5"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
   inner_product_param {
      num_output: 4
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1945,7 +2121,7 @@ layer {
 }
 layer {
   name: "attention_pool_scale6"
-  bottom: "attention_scale_6"
+  bottom: "attention_scale6"
   top: "attention_pool_scale6"
   type: "Pooling"
   pooling_param {
@@ -1972,12 +2148,16 @@ layer {
   type: "InnerProduct"
   bottom: "attention_dropout_scale6"
   top: "classification_fc1_scale6"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 64
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -1994,12 +2174,24 @@ layer {
   type: "InnerProduct"
   bottom: "classification_dropout_scale6"
   top: "classification_fc2_scale6"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
   inner_product_param {
      num_output: 4
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -2018,7 +2210,7 @@ layer {
 }
 layer {
   name: "attention_pool_scale7"
-  bottom: "attention_scale_7"
+  bottom: "attention_scale7"
   top: "attention_pool_scale7"
   type: "Pooling"
   pooling_param {
@@ -2045,12 +2237,16 @@ layer {
   type: "InnerProduct"
   bottom: "attention_dropout_scale7"
   top: "classification_fc1_scale7"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
      num_output: 64
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
@@ -2067,12 +2263,24 @@ layer {
   type: "InnerProduct"
   bottom: "classification_dropout_scale7"
   top: "classification_fc2_scale7"
-  param { lr_mult: 1 decay_mult: 1 }
-  param { lr_mult: 2 decay_mult: 0 }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
+  param {
+    lr_mult: 10
+    decay_mult: 2
+  }
   inner_product_param {
      num_output: 4
-     weight_filler { type: "msra" std: 0.010 }
-     bias_filler { type: "constant" value: 0 }
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
   }
 }
 layer {
