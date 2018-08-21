@@ -8,7 +8,7 @@ num_trans_layers = 3
 num_dense_layers = 5
 num_class = 4
 use_pooling = True
-use_ip = True
+use_aux_loss = True
 
 #change the line below to experiment with different setting
 #depth -- must be 3n+4
@@ -156,7 +156,6 @@ def gen_attention_layer(f, num_layers=3, num_output=64, kernel_h=1, kernel_w=1, 
         bottom_list.append('attention_reweight_'+str(i))
     f.write(gen_layer.generate_eltwise_layer_str('attention_reweight_sum', bottom_list, 'attention_reweight_sum', 'SUM'))
 
-
 def gen_classification_layer(f, num_output=64, num_class=num_class, dropout_ratio=0.7):
     f.write(gen_layer.generate_flatten_layer_str('attention_reweight_flatten', 'attention_reweight_sum', 'attention_reweight_flatten'))
     f.write(gen_layer.generate_dropout_layer_str('attention_reweight_dropout', 'attention_reweight_flatten', 'attention_reweight_dropout', dropout_ratio))
@@ -165,6 +164,28 @@ def gen_classification_layer(f, num_output=64, num_class=num_class, dropout_rati
     f.write(gen_layer.generate_fc_layer_str('classification_fc2', 'classification_dropout', 'classification_fc2', num_class))
     f.write(gen_layer.generate_softmax_loss_str('classification_loss', 'classification_fc2', 'label', 'classification_loss'))
     f.write(gen_layer.generate_accuracy_str('classification_accuracy', 'classification_fc2', 'label', 'classification_accuracy'))
+    if use_aux_loss:
+        num_group = num_trans_layers + num_dense_layers
+        for i in range(num_group):
+            f.write(gen_layer.generate_pooling_layer_str(
+                'attention_pool_scale'+str(i), 'attention_scale_'+str(i), 'attention_pool_scale'+str(i), 'global_pooling'))
+            f.write(gen_layer.generate_flatten_layer_str('attention_flatten_scale'+str(i), 'attention_pool_scale'+str(i),
+                                                         'attention_flatten_scale'+str(i)))
+            f.write(gen_layer.generate_dropout_layer_str('attention_dropout_scale'+str(i), 'attention_flatten_scale'+str(i),
+                                                         'attention_dropout_scale'+str(i), dropout_ratio))
+            f.write(gen_layer.generate_fc_layer_str('classification_fc1_scale'+str(i), 'attention_dropout_scale'+str(i),
+                                                    'classification_fc1_scale'+str(i), num_output))
+            f.write(gen_layer.generate_dropout_layer_str('classification_dropout_scale'+str(i), 'classification_fc1_scale'+str(i),
+                                                         'classification_dropout_scale'+str(i), dropout_ratio))
+            f.write(gen_layer.generate_fc_layer_str('clasification_fc2_scale'+str(i), 'classification_dropout_scale'+str(i),
+                                                    'classification_fc2_scale'+str(i), num_class))
+            f.write(gen_layer.generate_softmax_loss_str('classification_loss_scale'+str(i), 'classification_fc2_scale'+str(i),
+                                                        'label', 'classification_loss_scale'+str(i)))
+            f.write(gen_layer.generate_accuracy_str('classification_accuracy_scale'+str(i), 'classification_fc2_scale'+str(i),
+                                                    'label', 'classification_accuracy_scale'+str(i)))
+
+
+
 
 
 def gen_net():

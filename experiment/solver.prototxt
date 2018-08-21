@@ -1,0 +1,30 @@
+net: "train_test_net.prototxt"
+
+test_iter: 95
+
+test_interval: 1000
+
+test_initialization: false
+
+momentum: 0.9
+
+lr_policy: "multistep"
+base_lr: 0.01
+gamma: 0.1
+
+stepvalue: 25000
+stepvalue: 28000
+
+regularization_type: "L1"
+# Display every 100 iterations
+display:100
+# snapshot intermediate results
+snapshot: 1000
+snapshot_prefix: "model"
+# solver mode: 0 for CPU and 1 for GPU
+solver_mode: 1
+
+#random_seed: 42
+
+weight_decay: 0.0001
+max_iter: 30000
