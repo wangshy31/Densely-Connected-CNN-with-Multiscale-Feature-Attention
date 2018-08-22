@@ -624,55 +624,8 @@ layer {
   type: "ReLU"
 }
 layer {
-  name: "attention_layer_conv2"
-  bottom: "attention_layer_bn1"
-  top: "attention_layer_conv2"
-  type: "Convolution"
-  convolution_param {
-    num_output: 512
-    stride: 1
-    weight_filler {
-      type: "gaussian"
-      std: 0.058925565
-    }
-    bias_filler {
-      type: "constant"
-      value: 0
-    }
-    group: 8
-    kernel_h: 1
-    kernel_w: 1
-    pad_h: 0
-    pad_w: 0
-  }
-}
-layer {
-  name: "attention_layer_bn2"
-  bottom: "attention_layer_conv2"
-  top: "attention_layer_bn2"
-  type: "BatchNorm"
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-  param {
-    lr_mult: 0
-    decay_mult: 0
-  }
-}
-layer {
-  name: "attention_layer_relu2"
-  bottom: "attention_layer_bn2"
-  top: "attention_layer_bn2"
-  type: "ReLU"
-}
-layer {
   name: "attention_scale_slice"
-  bottom: "attention_layer_bn2"
+  bottom: "attention_layer_bn1"
   top: "attention_scale0"
   top: "attention_scale1"
   top: "attention_scale2"
@@ -906,7 +859,7 @@ layer {
   bottom: "attention_height0"
   top: "attention_height_fc1_0"
   inner_product_param {
-     num_output: 64
+     num_output: 128
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -923,6 +876,23 @@ layer {
   bottom: "attention_height_fc1_0"
   top: "attention_height_fc2_0"
   inner_product_param {
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
+  }
+}
+layer {
+  name: "attention_height_fc3_0"
+  type: "InnerProduct"
+  bottom: "attention_height_fc2_0"
+  top: "attention_height_fc3_0"
+  inner_product_param {
      num_output: 8
      weight_filler {
        type: "gaussian"
@@ -936,7 +906,7 @@ layer {
 }
 layer {
   name: "attention_height_reshape0"
-  bottom: "attention_height_fc2_0"
+  bottom: "attention_height_fc3_0"
   top: "attention_height_reshape0"
   type: "Reshape"
   reshape_param {
@@ -954,7 +924,7 @@ layer {
   bottom: "attention_height1"
   top: "attention_height_fc1_1"
   inner_product_param {
-     num_output: 64
+     num_output: 128
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -971,6 +941,23 @@ layer {
   bottom: "attention_height_fc1_1"
   top: "attention_height_fc2_1"
   inner_product_param {
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
+  }
+}
+layer {
+  name: "attention_height_fc3_1"
+  type: "InnerProduct"
+  bottom: "attention_height_fc2_1"
+  top: "attention_height_fc3_1"
+  inner_product_param {
      num_output: 8
      weight_filler {
        type: "gaussian"
@@ -984,7 +971,7 @@ layer {
 }
 layer {
   name: "attention_height_reshape1"
-  bottom: "attention_height_fc2_1"
+  bottom: "attention_height_fc3_1"
   top: "attention_height_reshape1"
   type: "Reshape"
   reshape_param {
@@ -1002,7 +989,7 @@ layer {
   bottom: "attention_height2"
   top: "attention_height_fc1_2"
   inner_product_param {
-     num_output: 64
+     num_output: 128
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1019,6 +1006,23 @@ layer {
   bottom: "attention_height_fc1_2"
   top: "attention_height_fc2_2"
   inner_product_param {
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
+  }
+}
+layer {
+  name: "attention_height_fc3_2"
+  type: "InnerProduct"
+  bottom: "attention_height_fc2_2"
+  top: "attention_height_fc3_2"
+  inner_product_param {
      num_output: 8
      weight_filler {
        type: "gaussian"
@@ -1032,7 +1036,7 @@ layer {
 }
 layer {
   name: "attention_height_reshape2"
-  bottom: "attention_height_fc2_2"
+  bottom: "attention_height_fc3_2"
   top: "attention_height_reshape2"
   type: "Reshape"
   reshape_param {
@@ -1050,7 +1054,7 @@ layer {
   bottom: "attention_height3"
   top: "attention_height_fc1_3"
   inner_product_param {
-     num_output: 64
+     num_output: 128
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1067,6 +1071,23 @@ layer {
   bottom: "attention_height_fc1_3"
   top: "attention_height_fc2_3"
   inner_product_param {
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
+  }
+}
+layer {
+  name: "attention_height_fc3_3"
+  type: "InnerProduct"
+  bottom: "attention_height_fc2_3"
+  top: "attention_height_fc3_3"
+  inner_product_param {
      num_output: 8
      weight_filler {
        type: "gaussian"
@@ -1080,7 +1101,7 @@ layer {
 }
 layer {
   name: "attention_height_reshape3"
-  bottom: "attention_height_fc2_3"
+  bottom: "attention_height_fc3_3"
   top: "attention_height_reshape3"
   type: "Reshape"
   reshape_param {
@@ -1098,7 +1119,7 @@ layer {
   bottom: "attention_height4"
   top: "attention_height_fc1_4"
   inner_product_param {
-     num_output: 64
+     num_output: 128
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1115,6 +1136,23 @@ layer {
   bottom: "attention_height_fc1_4"
   top: "attention_height_fc2_4"
   inner_product_param {
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
+  }
+}
+layer {
+  name: "attention_height_fc3_4"
+  type: "InnerProduct"
+  bottom: "attention_height_fc2_4"
+  top: "attention_height_fc3_4"
+  inner_product_param {
      num_output: 8
      weight_filler {
        type: "gaussian"
@@ -1128,7 +1166,7 @@ layer {
 }
 layer {
   name: "attention_height_reshape4"
-  bottom: "attention_height_fc2_4"
+  bottom: "attention_height_fc3_4"
   top: "attention_height_reshape4"
   type: "Reshape"
   reshape_param {
@@ -1146,7 +1184,7 @@ layer {
   bottom: "attention_height5"
   top: "attention_height_fc1_5"
   inner_product_param {
-     num_output: 64
+     num_output: 128
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1163,6 +1201,23 @@ layer {
   bottom: "attention_height_fc1_5"
   top: "attention_height_fc2_5"
   inner_product_param {
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
+  }
+}
+layer {
+  name: "attention_height_fc3_5"
+  type: "InnerProduct"
+  bottom: "attention_height_fc2_5"
+  top: "attention_height_fc3_5"
+  inner_product_param {
      num_output: 8
      weight_filler {
        type: "gaussian"
@@ -1176,7 +1231,7 @@ layer {
 }
 layer {
   name: "attention_height_reshape5"
-  bottom: "attention_height_fc2_5"
+  bottom: "attention_height_fc3_5"
   top: "attention_height_reshape5"
   type: "Reshape"
   reshape_param {
@@ -1194,7 +1249,7 @@ layer {
   bottom: "attention_height6"
   top: "attention_height_fc1_6"
   inner_product_param {
-     num_output: 64
+     num_output: 128
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1211,6 +1266,23 @@ layer {
   bottom: "attention_height_fc1_6"
   top: "attention_height_fc2_6"
   inner_product_param {
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
+  }
+}
+layer {
+  name: "attention_height_fc3_6"
+  type: "InnerProduct"
+  bottom: "attention_height_fc2_6"
+  top: "attention_height_fc3_6"
+  inner_product_param {
      num_output: 8
      weight_filler {
        type: "gaussian"
@@ -1224,7 +1296,7 @@ layer {
 }
 layer {
   name: "attention_height_reshape6"
-  bottom: "attention_height_fc2_6"
+  bottom: "attention_height_fc3_6"
   top: "attention_height_reshape6"
   type: "Reshape"
   reshape_param {
@@ -1242,7 +1314,7 @@ layer {
   bottom: "attention_height7"
   top: "attention_height_fc1_7"
   inner_product_param {
-     num_output: 64
+     num_output: 128
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1259,6 +1331,23 @@ layer {
   bottom: "attention_height_fc1_7"
   top: "attention_height_fc2_7"
   inner_product_param {
+     num_output: 64
+     weight_filler {
+       type: "gaussian"
+       std: 0.001
+     }
+     bias_filler {
+       type: "constant"
+       value: 0
+     }
+  }
+}
+layer {
+  name: "attention_height_fc3_7"
+  type: "InnerProduct"
+  bottom: "attention_height_fc2_7"
+  top: "attention_height_fc3_7"
+  inner_product_param {
      num_output: 8
      weight_filler {
        type: "gaussian"
@@ -1272,7 +1361,7 @@ layer {
 }
 layer {
   name: "attention_height_reshape7"
-  bottom: "attention_height_fc2_7"
+  bottom: "attention_height_fc3_7"
   top: "attention_height_reshape7"
   type: "Reshape"
   reshape_param {

@@ -89,7 +89,7 @@ def gen_dense_layer(f, num_layers=num_dense_layers, num_output=64, kernel_h=3,
             f.write(gen_layer.generate_pooling_layer_str(
                 'dense_layer_pool'+str(i), 'dense_layer_bn'+str(i), 'dense_layer_pool'+str(i)))
 
-def gen_attention_layer(f, num_layers=3, num_output=64, kernel_h=1, kernel_w=1, pad_h=0, pad_w=0):
+def gen_attention_layer(f, num_layers=2, num_output=64, kernel_h=1, kernel_w=1, pad_h=0, pad_w=0):
     f.write('#----Multi-scale Feature Attention----\n')
     def calc_pooled_height(x):
         for i in range(num_dense_layers - 1):
@@ -135,10 +135,12 @@ def gen_attention_layer(f, num_layers=3, num_output=64, kernel_h=1, kernel_w=1, 
                                                'attention_height', num_height, 1, 2))
     for i in range(num_height):
         f.write(gen_layer.generate_fc_layer_str('attention_height_fc1_'+str(i), 'attention_height'+str(i),
-                                               'attention_height_fc1_'+str(i), num_output))
+                                               'attention_height_fc1_'+str(i), 128))
         f.write(gen_layer.generate_fc_layer_str('attention_height_fc2_'+str(i), 'attention_height_fc1_'+str(i),
-                                               'attention_height_fc2_'+str(i), num_group))
-        f.write(gen_layer.generate_reshape_layer_str('attention_height_reshape'+str(i), 'attention_height_fc2_'+str(i),
+                                               'attention_height_fc2_'+str(i), 64))
+        f.write(gen_layer.generate_fc_layer_str('attention_height_fc3_'+str(i), 'attention_height_fc2_'+str(i),
+                                               'attention_height_fc3_'+str(i), num_group))
+        f.write(gen_layer.generate_reshape_layer_str('attention_height_reshape'+str(i), 'attention_height_fc3_'+str(i),
                                                'attention_height_reshape'+str(i), [0, 0, 1, 1]))
     bottom_list = []
     for i in range(num_height):
