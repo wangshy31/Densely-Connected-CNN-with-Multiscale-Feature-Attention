@@ -32,7 +32,7 @@ If you find these models useful in your research, please consider citing:
 
 1. Prepare training & testing data by using original datasets, pretrained word vectors and tools in `$(DenseAttention_ROOT)/data/gen_data.py`.
 
-2. Generate the training & testing prototxt by using tools in `$(DenseAttention_ROOT)/script/gen_model.py'.
+2. Generate the training & testing prototxt by using tools in `$(DenseAttention_ROOT)/script/gen_model.py`.
 
 3. To perform experiments, run the script with the corresponding config file as input. For example, to train and test, use the following command
     ```
