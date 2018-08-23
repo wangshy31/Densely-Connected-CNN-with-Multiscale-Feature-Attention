@@ -8,7 +8,7 @@ num_trans_layers = 3
 num_dense_layers = 5
 num_class = 4
 use_pooling = True
-use_aux_loss = True
+use_aux_loss = False
 
 #change the line below to experiment with different setting
 #depth -- must be 3n+4
@@ -135,9 +135,9 @@ def gen_attention_layer(f, num_layers=2, num_output=64, kernel_h=1, kernel_w=1, 
                                                'attention_height', num_height, 1, 2))
     for i in range(num_height):
         f.write(gen_layer.generate_fc_layer_str('attention_height_fc1_'+str(i), 'attention_height'+str(i),
-                                               'attention_height_fc1_'+str(i), 128))
+                                               'attention_height_fc1_'+str(i), 64))
         f.write(gen_layer.generate_fc_layer_str('attention_height_fc2_'+str(i), 'attention_height_fc1_'+str(i),
-                                               'attention_height_fc2_'+str(i), 64))
+                                               'attention_height_fc2_'+str(i), 32))
         f.write(gen_layer.generate_fc_layer_str('attention_height_fc3_'+str(i), 'attention_height_fc2_'+str(i),
                                                'attention_height_fc3_'+str(i), num_group))
         f.write(gen_layer.generate_reshape_layer_str('attention_height_reshape'+str(i), 'attention_height_fc3_'+str(i),
@@ -152,7 +152,7 @@ def gen_attention_layer(f, num_layers=2, num_output=64, kernel_h=1, kernel_w=1, 
     bottom_list = []
     for i in range(num_group):
         f.write(gen_layer.generate_tile_layer_str('attention_weight_tile'+str(i), 'attention_weight_slice'+str(i),
-                                                  'attention_weight_tile'+str(i), 1, 64))
+                                                  'attention_weight_tile'+str(i), 1, num_output))
         f.write(gen_layer.generate_eltwise_layer_str('attention_reweight'+str(i), ['attention_scale'+str(i), 'attention_weight_tile'+str(i)],
                                                   'attention_reweight'+str(i), 'PROD'))
         bottom_list.append('attention_reweight'+str(i))

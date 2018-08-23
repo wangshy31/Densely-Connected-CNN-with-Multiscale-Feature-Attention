@@ -316,14 +316,15 @@ def generate_softmax_layer_str(name, bottom, top):
 }\n'''%(name, bottom, top)
     return softmax_layer_str
 
-def generate_softmax_loss_str(name, bottom0, bottom1, top):
+def generate_softmax_loss_str(name, bottom0, bottom1, top, loss_weight=1):
     softmax_loss_str = '''layer {
   name: "%s"
   type: "SoftmaxWithLoss"
   bottom: "%s"
   bottom: "%s"
   top: "%s"
-}\n'''%(name, bottom0, bottom1, top)
+  loss_weight: %f
+}\n'''%(name, bottom0, bottom1, top, loss_weight)
     return softmax_loss_str
 
 def generate_accuracy_str(name, bottom0, bottom1, top):

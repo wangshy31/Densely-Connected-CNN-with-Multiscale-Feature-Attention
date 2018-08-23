@@ -859,7 +859,7 @@ layer {
   bottom: "attention_height0"
   top: "attention_height_fc1_0"
   inner_product_param {
-     num_output: 128
+     num_output: 64
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -876,7 +876,7 @@ layer {
   bottom: "attention_height_fc1_0"
   top: "attention_height_fc2_0"
   inner_product_param {
-     num_output: 64
+     num_output: 32
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -924,7 +924,7 @@ layer {
   bottom: "attention_height1"
   top: "attention_height_fc1_1"
   inner_product_param {
-     num_output: 128
+     num_output: 64
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -941,7 +941,7 @@ layer {
   bottom: "attention_height_fc1_1"
   top: "attention_height_fc2_1"
   inner_product_param {
-     num_output: 64
+     num_output: 32
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -989,7 +989,7 @@ layer {
   bottom: "attention_height2"
   top: "attention_height_fc1_2"
   inner_product_param {
-     num_output: 128
+     num_output: 64
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1006,7 +1006,7 @@ layer {
   bottom: "attention_height_fc1_2"
   top: "attention_height_fc2_2"
   inner_product_param {
-     num_output: 64
+     num_output: 32
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1054,7 +1054,7 @@ layer {
   bottom: "attention_height3"
   top: "attention_height_fc1_3"
   inner_product_param {
-     num_output: 128
+     num_output: 64
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1071,7 +1071,7 @@ layer {
   bottom: "attention_height_fc1_3"
   top: "attention_height_fc2_3"
   inner_product_param {
-     num_output: 64
+     num_output: 32
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1119,7 +1119,7 @@ layer {
   bottom: "attention_height4"
   top: "attention_height_fc1_4"
   inner_product_param {
-     num_output: 128
+     num_output: 64
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1136,7 +1136,7 @@ layer {
   bottom: "attention_height_fc1_4"
   top: "attention_height_fc2_4"
   inner_product_param {
-     num_output: 64
+     num_output: 32
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1184,7 +1184,7 @@ layer {
   bottom: "attention_height5"
   top: "attention_height_fc1_5"
   inner_product_param {
-     num_output: 128
+     num_output: 64
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1201,7 +1201,7 @@ layer {
   bottom: "attention_height_fc1_5"
   top: "attention_height_fc2_5"
   inner_product_param {
-     num_output: 64
+     num_output: 32
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1249,7 +1249,7 @@ layer {
   bottom: "attention_height6"
   top: "attention_height_fc1_6"
   inner_product_param {
-     num_output: 128
+     num_output: 64
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1266,7 +1266,7 @@ layer {
   bottom: "attention_height_fc1_6"
   top: "attention_height_fc2_6"
   inner_product_param {
-     num_output: 64
+     num_output: 32
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1314,7 +1314,7 @@ layer {
   bottom: "attention_height7"
   top: "attention_height_fc1_7"
   inner_product_param {
-     num_output: 128
+     num_output: 64
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1331,7 +1331,7 @@ layer {
   bottom: "attention_height_fc1_7"
   top: "attention_height_fc2_7"
   inner_product_param {
-     num_output: 64
+     num_output: 32
      weight_filler {
        type: "gaussian"
        std: 0.001
@@ -1666,6 +1666,7 @@ layer {
   bottom: "classification_fc2"
   bottom: "label"
   top: "classification_loss"
+  loss_weight: 1.000000
 }
 layer {
   name: "classification_accuracy"
@@ -1673,716 +1674,4 @@ layer {
   bottom: "classification_fc2"
   bottom: "label"
   top: "classification_accuracy"
-}
-layer {
-  name: "attention_pool_scale0"
-  bottom: "attention_scale0"
-  top: "attention_pool_scale0"
-  type: "Pooling"
-  pooling_param {
-    global_pooling : true
-  }
-}
-layer {
-  name: "attention_flatten_scale0"
-  bottom: "attention_pool_scale0"
-  top: "attention_flatten_scale0"
-  type: "Flatten"
-}
-layer {
-  name: "attention_dropout_scale0"
-  bottom: "attention_flatten_scale0"
-  top: "attention_dropout_scale0"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "classification_fc1_scale0"
-  type: "InnerProduct"
-  bottom: "attention_dropout_scale0"
-  top: "classification_fc1_scale0"
-  inner_product_param {
-     num_output: 64
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_dropout_scale0"
-  bottom: "classification_fc1_scale0"
-  top: "classification_dropout_scale0"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "clasification_fc2_scale0"
-  type: "InnerProduct"
-  bottom: "classification_dropout_scale0"
-  top: "classification_fc2_scale0"
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  inner_product_param {
-     num_output: 4
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_loss_scale0"
-  type: "SoftmaxWithLoss"
-  bottom: "classification_fc2_scale0"
-  bottom: "label"
-  top: "classification_loss_scale0"
-}
-layer {
-  name: "classification_accuracy_scale0"
-  type: "Accuracy"
-  bottom: "classification_fc2_scale0"
-  bottom: "label"
-  top: "classification_accuracy_scale0"
-}
-layer {
-  name: "attention_pool_scale1"
-  bottom: "attention_scale1"
-  top: "attention_pool_scale1"
-  type: "Pooling"
-  pooling_param {
-    global_pooling : true
-  }
-}
-layer {
-  name: "attention_flatten_scale1"
-  bottom: "attention_pool_scale1"
-  top: "attention_flatten_scale1"
-  type: "Flatten"
-}
-layer {
-  name: "attention_dropout_scale1"
-  bottom: "attention_flatten_scale1"
-  top: "attention_dropout_scale1"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "classification_fc1_scale1"
-  type: "InnerProduct"
-  bottom: "attention_dropout_scale1"
-  top: "classification_fc1_scale1"
-  inner_product_param {
-     num_output: 64
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_dropout_scale1"
-  bottom: "classification_fc1_scale1"
-  top: "classification_dropout_scale1"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "clasification_fc2_scale1"
-  type: "InnerProduct"
-  bottom: "classification_dropout_scale1"
-  top: "classification_fc2_scale1"
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  inner_product_param {
-     num_output: 4
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_loss_scale1"
-  type: "SoftmaxWithLoss"
-  bottom: "classification_fc2_scale1"
-  bottom: "label"
-  top: "classification_loss_scale1"
-}
-layer {
-  name: "classification_accuracy_scale1"
-  type: "Accuracy"
-  bottom: "classification_fc2_scale1"
-  bottom: "label"
-  top: "classification_accuracy_scale1"
-}
-layer {
-  name: "attention_pool_scale2"
-  bottom: "attention_scale2"
-  top: "attention_pool_scale2"
-  type: "Pooling"
-  pooling_param {
-    global_pooling : true
-  }
-}
-layer {
-  name: "attention_flatten_scale2"
-  bottom: "attention_pool_scale2"
-  top: "attention_flatten_scale2"
-  type: "Flatten"
-}
-layer {
-  name: "attention_dropout_scale2"
-  bottom: "attention_flatten_scale2"
-  top: "attention_dropout_scale2"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "classification_fc1_scale2"
-  type: "InnerProduct"
-  bottom: "attention_dropout_scale2"
-  top: "classification_fc1_scale2"
-  inner_product_param {
-     num_output: 64
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_dropout_scale2"
-  bottom: "classification_fc1_scale2"
-  top: "classification_dropout_scale2"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "clasification_fc2_scale2"
-  type: "InnerProduct"
-  bottom: "classification_dropout_scale2"
-  top: "classification_fc2_scale2"
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  inner_product_param {
-     num_output: 4
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_loss_scale2"
-  type: "SoftmaxWithLoss"
-  bottom: "classification_fc2_scale2"
-  bottom: "label"
-  top: "classification_loss_scale2"
-}
-layer {
-  name: "classification_accuracy_scale2"
-  type: "Accuracy"
-  bottom: "classification_fc2_scale2"
-  bottom: "label"
-  top: "classification_accuracy_scale2"
-}
-layer {
-  name: "attention_pool_scale3"
-  bottom: "attention_scale3"
-  top: "attention_pool_scale3"
-  type: "Pooling"
-  pooling_param {
-    global_pooling : true
-  }
-}
-layer {
-  name: "attention_flatten_scale3"
-  bottom: "attention_pool_scale3"
-  top: "attention_flatten_scale3"
-  type: "Flatten"
-}
-layer {
-  name: "attention_dropout_scale3"
-  bottom: "attention_flatten_scale3"
-  top: "attention_dropout_scale3"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "classification_fc1_scale3"
-  type: "InnerProduct"
-  bottom: "attention_dropout_scale3"
-  top: "classification_fc1_scale3"
-  inner_product_param {
-     num_output: 64
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_dropout_scale3"
-  bottom: "classification_fc1_scale3"
-  top: "classification_dropout_scale3"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "clasification_fc2_scale3"
-  type: "InnerProduct"
-  bottom: "classification_dropout_scale3"
-  top: "classification_fc2_scale3"
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  inner_product_param {
-     num_output: 4
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_loss_scale3"
-  type: "SoftmaxWithLoss"
-  bottom: "classification_fc2_scale3"
-  bottom: "label"
-  top: "classification_loss_scale3"
-}
-layer {
-  name: "classification_accuracy_scale3"
-  type: "Accuracy"
-  bottom: "classification_fc2_scale3"
-  bottom: "label"
-  top: "classification_accuracy_scale3"
-}
-layer {
-  name: "attention_pool_scale4"
-  bottom: "attention_scale4"
-  top: "attention_pool_scale4"
-  type: "Pooling"
-  pooling_param {
-    global_pooling : true
-  }
-}
-layer {
-  name: "attention_flatten_scale4"
-  bottom: "attention_pool_scale4"
-  top: "attention_flatten_scale4"
-  type: "Flatten"
-}
-layer {
-  name: "attention_dropout_scale4"
-  bottom: "attention_flatten_scale4"
-  top: "attention_dropout_scale4"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "classification_fc1_scale4"
-  type: "InnerProduct"
-  bottom: "attention_dropout_scale4"
-  top: "classification_fc1_scale4"
-  inner_product_param {
-     num_output: 64
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_dropout_scale4"
-  bottom: "classification_fc1_scale4"
-  top: "classification_dropout_scale4"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "clasification_fc2_scale4"
-  type: "InnerProduct"
-  bottom: "classification_dropout_scale4"
-  top: "classification_fc2_scale4"
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  inner_product_param {
-     num_output: 4
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_loss_scale4"
-  type: "SoftmaxWithLoss"
-  bottom: "classification_fc2_scale4"
-  bottom: "label"
-  top: "classification_loss_scale4"
-}
-layer {
-  name: "classification_accuracy_scale4"
-  type: "Accuracy"
-  bottom: "classification_fc2_scale4"
-  bottom: "label"
-  top: "classification_accuracy_scale4"
-}
-layer {
-  name: "attention_pool_scale5"
-  bottom: "attention_scale5"
-  top: "attention_pool_scale5"
-  type: "Pooling"
-  pooling_param {
-    global_pooling : true
-  }
-}
-layer {
-  name: "attention_flatten_scale5"
-  bottom: "attention_pool_scale5"
-  top: "attention_flatten_scale5"
-  type: "Flatten"
-}
-layer {
-  name: "attention_dropout_scale5"
-  bottom: "attention_flatten_scale5"
-  top: "attention_dropout_scale5"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "classification_fc1_scale5"
-  type: "InnerProduct"
-  bottom: "attention_dropout_scale5"
-  top: "classification_fc1_scale5"
-  inner_product_param {
-     num_output: 64
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_dropout_scale5"
-  bottom: "classification_fc1_scale5"
-  top: "classification_dropout_scale5"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "clasification_fc2_scale5"
-  type: "InnerProduct"
-  bottom: "classification_dropout_scale5"
-  top: "classification_fc2_scale5"
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  inner_product_param {
-     num_output: 4
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_loss_scale5"
-  type: "SoftmaxWithLoss"
-  bottom: "classification_fc2_scale5"
-  bottom: "label"
-  top: "classification_loss_scale5"
-}
-layer {
-  name: "classification_accuracy_scale5"
-  type: "Accuracy"
-  bottom: "classification_fc2_scale5"
-  bottom: "label"
-  top: "classification_accuracy_scale5"
-}
-layer {
-  name: "attention_pool_scale6"
-  bottom: "attention_scale6"
-  top: "attention_pool_scale6"
-  type: "Pooling"
-  pooling_param {
-    global_pooling : true
-  }
-}
-layer {
-  name: "attention_flatten_scale6"
-  bottom: "attention_pool_scale6"
-  top: "attention_flatten_scale6"
-  type: "Flatten"
-}
-layer {
-  name: "attention_dropout_scale6"
-  bottom: "attention_flatten_scale6"
-  top: "attention_dropout_scale6"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "classification_fc1_scale6"
-  type: "InnerProduct"
-  bottom: "attention_dropout_scale6"
-  top: "classification_fc1_scale6"
-  inner_product_param {
-     num_output: 64
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_dropout_scale6"
-  bottom: "classification_fc1_scale6"
-  top: "classification_dropout_scale6"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "clasification_fc2_scale6"
-  type: "InnerProduct"
-  bottom: "classification_dropout_scale6"
-  top: "classification_fc2_scale6"
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  inner_product_param {
-     num_output: 4
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_loss_scale6"
-  type: "SoftmaxWithLoss"
-  bottom: "classification_fc2_scale6"
-  bottom: "label"
-  top: "classification_loss_scale6"
-}
-layer {
-  name: "classification_accuracy_scale6"
-  type: "Accuracy"
-  bottom: "classification_fc2_scale6"
-  bottom: "label"
-  top: "classification_accuracy_scale6"
-}
-layer {
-  name: "attention_pool_scale7"
-  bottom: "attention_scale7"
-  top: "attention_pool_scale7"
-  type: "Pooling"
-  pooling_param {
-    global_pooling : true
-  }
-}
-layer {
-  name: "attention_flatten_scale7"
-  bottom: "attention_pool_scale7"
-  top: "attention_flatten_scale7"
-  type: "Flatten"
-}
-layer {
-  name: "attention_dropout_scale7"
-  bottom: "attention_flatten_scale7"
-  top: "attention_dropout_scale7"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "classification_fc1_scale7"
-  type: "InnerProduct"
-  bottom: "attention_dropout_scale7"
-  top: "classification_fc1_scale7"
-  inner_product_param {
-     num_output: 64
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_dropout_scale7"
-  bottom: "classification_fc1_scale7"
-  top: "classification_dropout_scale7"
-  type: "Dropout"
-  dropout_param {
-    dropout_ratio: 0.700000
-  }
-}
-layer {
-  name: "clasification_fc2_scale7"
-  type: "InnerProduct"
-  bottom: "classification_dropout_scale7"
-  top: "classification_fc2_scale7"
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  param {
-    lr_mult: 10
-    decay_mult: 2
-  }
-  inner_product_param {
-     num_output: 4
-     weight_filler {
-       type: "gaussian"
-       std: 0.001
-     }
-     bias_filler {
-       type: "constant"
-       value: 0
-     }
-  }
-}
-layer {
-  name: "classification_loss_scale7"
-  type: "SoftmaxWithLoss"
-  bottom: "classification_fc2_scale7"
-  bottom: "label"
-  top: "classification_loss_scale7"
-}
-layer {
-  name: "classification_accuracy_scale7"
-  type: "Accuracy"
-  bottom: "classification_fc2_scale7"
-  bottom: "label"
-  top: "classification_accuracy_scale7"
 }
