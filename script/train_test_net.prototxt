@@ -10,7 +10,7 @@ layer {
   text_data_param {
     label_source: "/ssd/ijcai18/data/agnews/train_label.txt"
     data_source: "/ssd/ijcai18/data/agnews/train_data.txt"
-    dict_source: "/ssd/ijcai18/data/agnews/local_dic_index.txt"
+    dict_source: "/ssd/ijcai18/data/agnews/local_dict.txt"
     batch_size: 64
     channel: 1
     num_words: 200
@@ -29,7 +29,7 @@ layer {
   text_data_param {
     label_source: "/ssd/ijcai18/data/agnews/test_label.txt"
     data_source: "/ssd/ijcai18/data/agnews/test_data.txt"
-    dict_source: "/ssd/ijcai18/data/agnews/local_dic_index.txt"
+    dict_source: "/ssd/ijcai18/data/agnews/local_dict.txt"
     batch_size: 80
     channel: 1
     num_words: 100

@@ -13,6 +13,8 @@ def clearText():
     data = []
     label_fid = open(dest_data + '/train_label.txt', 'w')
     #remove  useless symbols
+    count = 0
+    lines = []
     with open(source_data + '/train.csv') as f:
         for line in f:
             line = line.strip('\n')
@@ -20,12 +22,18 @@ def clearText():
             line[1] = line[1].replace('\\',' ').replace('\"',' ').replace('/',' ').replace('\'',' ').replace('*',' ').replace('-',' ').replace('.',' ').replace('(', ' ').replace(')', ' ')
             line[2] = line[2].replace('\\',' ').replace('\"',' ').replace('/',' ').replace('\'',' ').replace('*',' ').replace('-',' ').replace('.',' ').replace('(', ' ').replace(')', ' ')
             # subtract the offset of labels
-            label_fid.write(str(int(line[0].split('\"')[1])-1)+'\n')
+            lines.append(str(int(line[0].split('\"')[1])-1)+'\n')
             data.append(line[1]+' '+line[2])
+            count += 1
+    lines.insert(0,str(count)+"\n")
+    s=''.join(lines)
+    label_fid.write(s)
     train_num = len(data)
-
     label_fid.close()
+
     label_fid = open(dest_data+'/test_label.txt', 'w')
+    count = 0
+    lines = []
     with open(source_data+'/test.csv') as f:
         for line in f:
             line = line.strip('\n')
@@ -34,9 +42,15 @@ def clearText():
             line[1] = line[1].replace('\\',' ').replace('\"\"',' ').replace('/',' ').replace('\'',' ').replace('*',' ').replace('-',' ').replace('.',' ').replace('(', ' ').replace(')', ' ')
             line[2] = line[2].replace('\\',' ').replace('\"\"',' ').replace('/',' ').replace('\'',' ').replace('*',' ').replace('-',' ').replace('.',' ').replace('(', ' ').replace(')', ' ')
             # subtract the offset of labels
-            label_fid.write(str(int(line[0].split('\"')[1])-1)+'\n')
+            lines.append(str(int(line[0].split('\"')[1])-1)+'\n')
             data.append(line[1]+' '+line[2].rstrip('\"'))
+            count += 1
+
+    lines.insert(0,str(count)+"\n")
+    s=''.join(lines)
+    label_fid.write(s)
     label_fid.close()
+
     return data, train_num
 
 def gen_global_dict():
@@ -65,7 +79,7 @@ def gen_local_dict(global_dict, data):
         if global_dict.has_key(words[i]):
             local_dict[words[i]] = index
             index = index + 1
-            local_dict_fid.write(words[i]+'\t'+global_dict[words[i]]+'\n')
+            local_dict_fid.write(global_dict[words[i]]+'\n')
         else:
             local_fail_fid.write(words[i]+'\n')
     print 'Local dict has been saved in \'local_dict.txt\'.'
@@ -92,10 +106,18 @@ def gen_train_test(local_dict, data, train_num):
                 if local_dict.has_key(words[j]):
                     test_fid.write(str(local_dict[words[j]])+' ')
             test_fid.write('\n')
+    print str(len(data)) + ' samples have been generated!'
     train_fid.close()
     test_fid.close()
 
 if __name__ == '__main__':
+    '''
+    step1: convert pretrained word vectors to global_dict - gen_global_dict().
+    step2: clear the training and testing data - clearText().
+    step3: select the words which will be used for training and testing, and generate local dict = gen_local_dict(global_dict, data)
+    step4: generate training and testing data in an index format - gen_train_test(local_dict, data, train_num)
+    The example of results can be found in $dest_data
+    '''
     global_dict = gen_global_dict()
     if (not os.path.exists(dest_data)):
         os.system('mkdir '+dest_data)

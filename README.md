@@ -30,7 +30,7 @@ If you find these models useful in your research, please consider citing:
 
 ## Usage
 
-1. Prepare training & testing data by using original datasets, pretrained word vectors and tools in `$(DenseAttention_ROOT)/data/gen_data.py`.
+1. Prepare training & testing data by using original datasets, pretrained word vectors and tools in `$(DenseAttention_ROOT)/data/gen_data.py`. An example is in `$(DenseAttention_ROOT)/data/agnews`.
 
 2. Generate the training & testing prototxt by using tools in `$(DenseAttention_ROOT)/script/gen_model.py`.
 

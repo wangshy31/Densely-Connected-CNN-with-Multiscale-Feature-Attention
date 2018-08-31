@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-def generate_data_layer_str(label_source, data_source, local_dict,train_batch_size, test_batch_size,
+def generate_data_layer_str(label_source, data_source, local_dict, train_batch_size, test_batch_size,
                             channel, train_num_words, test_num_words, c_h, c_w):
     train_label = label_source+'/train_label.txt'
     train_data = data_source+'/train_data.txt'
