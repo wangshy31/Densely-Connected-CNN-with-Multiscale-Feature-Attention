@@ -59,7 +59,7 @@ def gen_global_dict():
     with open(dict_dir) as f:
         for line in f:
             line = line.strip('\n')
-            line = line.split('\t')
+            line = line.split(' ', 1)
             global_dict[line[0]] = line[1]
     return global_dict
 
